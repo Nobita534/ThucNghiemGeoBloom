@@ -1,0 +1,16 @@
+# 1. Bỏ qua các file Vector và Nhị phân khổng lồ (>100MB)
+GeoBloom_Source/data_bin/**/*.bin
+GeoBloom_Source/model/tmp/**/*.bin
+results/GeoBloom_Supervised/*.bin
+
+# 2. Bỏ qua file dữ liệu thô siêu nặng
+GeoBloom_Source/data/**/*.txt
+
+# 3. Bỏ qua các trọng số mô hình (checkpoints) thường rất nặng
+models/**/*.pt
+GeoBloom_Source/ckpt/*.pt
+
+# 4. Bỏ qua các file rác của hệ thống và Python
+__pycache__/
+*.pyc
+.DS_Store

@@ -1,0 +1,26 @@
+Beam width: 800 800 800 800 Loading dataset from path: data_bin/GeoGLUE_clean/
+
+Use unsupervised model.
+
+Allocating 277.549 MB for 142105 bloom filters on the tree...
+
+Allocating 94.8846 MB for 777295 leaf nodes at depth 0...
+
+Infering test candidates...
+
+Searching 10000th query...
+
+Total search time of all threads: 69.0563s, Query Per Second: 176.045
+
+=============== Intermediate Recall Scores ==============
+
+0.968331        0.890022        0.814099        0.733816
+
+====================== Evaluation =======================
+
+Recall@20        Recall@10       NDCG@5          NDCG@1
+
+0.529983        0.471251        0.327060        0.236818
+
+========================================================= 
+
