@@ -1,5 +1,3 @@
-Fri May 15 18:56:55 2026
-Recall@20: 0.787941	Recall@10: 0.732582	NDCG@5: 0.550498	NDCG@1: 0.421239
-Best dev time: 2747.9098143577576 (s)
-Fri May 15 18:57:50 2026
-Recall@20: 0.787941	Recall@10: 0.732582	NDCG@5: 0.550498	NDCG@1: 0.421239
+version https://git-lfs.github.com/spec/v1
+oid sha256:727614eb8798d6679cc544a68dcf627c01e646bf2e113a58eb742e3c57dbc3e6
+size 236

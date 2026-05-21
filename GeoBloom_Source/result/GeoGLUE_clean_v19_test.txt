@@ -1,2 +1,3 @@
-Thu May 21 13:32:45 2026
-Recall@20: 0.529983	Recall@10: 0.471251	NDCG@5: 0.32706	NDCG@1: 0.236818
+version https://git-lfs.github.com/spec/v1
+oid sha256:3b7a93b8e8e19e492f608e7613e07bcac7fef1bed1e8ef22acd2e1bf655412f5
+size 98
