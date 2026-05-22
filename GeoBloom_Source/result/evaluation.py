@@ -54,8 +54,8 @@ if __name__ == '__main__':
         # 'Beijing',
         # 'Shanghai',
         # 'GeoGLUE',
-        # 'GeoGLUE_clean',
-        'Synthetic',
+         'GeoGLUE_clean',
+        # 'Synthetic',
     ]
     metrics = {
         # 'Recall @ 1000': lambda p, t: recall(p, t, 1000),
@@ -68,7 +68,7 @@ if __name__ == '__main__':
         # 'BM25',
         'BM25_D',
         # 'BERT',
-        # 'BERT_D',
+         'BERT_D',
         # 'OpenAI',
         # 'OpenAI_D',
         # 'DPR',
@@ -90,7 +90,8 @@ if __name__ == '__main__':
 
             def test(result_file):
                 if not os.path.exists(result_file):
-                    return
+                   print(f"DEBUG: Thiếu file {result_file}")
+		   return
                 top100 = np.load(result_file)
                 print(f'{dataset}\t{model}\tlength={top100.shape[-1]}\n', end='')
                 results = evaluate(top100, query_truth, metrics)
@@ -101,8 +102,14 @@ if __name__ == '__main__':
 
             test(f'result/{dataset}_{model}_top100.npy')
             for portion in portions:
-                test(f'result/{dataset}_{model}_{portion}_top100.npy')
-                
-
-
-    
+                test(f'result/{dataset}_{model}_{portion}_top100.npy')def test(result_file):
+                if not os.path.exists(result_file):
+                    print(f"DEBUG: Thiếu file {result_file}")
+                    return
+                top100 = np.load(result_file)
+                print(f'{dataset}\t{model}\tlength={top100.shape[-1]}\n', end='')
+                results = evaluate(top100, query_truth, metrics)
+                result_string = ''
+                for _, metric_value in results.items():
+                    result_string += f'{metric_value}\t'
+                print(result_string[:-1])
