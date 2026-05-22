@@ -90,20 +90,6 @@ if __name__ == '__main__':
 
             def test(result_file):
                 if not os.path.exists(result_file):
-                   print(f"DEBUG: Thiếu file {result_file}")
-		   return
-                top100 = np.load(result_file)
-                print(f'{dataset}\t{model}\tlength={top100.shape[-1]}\n', end='')
-                results = evaluate(top100, query_truth, metrics)
-                result_string = ''
-                for _, metric_value in results.items():
-                    result_string += f'{metric_value}\t'
-                print(result_string[:-1])
-
-            test(f'result/{dataset}_{model}_top100.npy')
-            for portion in portions:
-                test(f'result/{dataset}_{model}_{portion}_top100.npy')def test(result_file):
-                if not os.path.exists(result_file):
                     print(f"DEBUG: Thiếu file {result_file}")
                     return
                 top100 = np.load(result_file)
