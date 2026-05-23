@@ -54,7 +54,7 @@ if __name__ == '__main__':
         # 'Beijing',
         # 'Shanghai',
         # 'GeoGLUE',
-         'GeoGLUE_clean',
+        'GeoGLUE_clean',
         # 'Synthetic',
     ]
     metrics = {
@@ -66,9 +66,9 @@ if __name__ == '__main__':
     }
     models = [
         # 'BM25',
-        # 'BM25_D',
+         'BM25_D',
         # 'BERT',
-         'BERT_D',
+        # 'BERT_D',
         # 'OpenAI',
         # 'OpenAI_D',
         # 'DPR',
@@ -96,7 +96,14 @@ if __name__ == '__main__':
                 print(f'{dataset}\t{model}\tlength={top100.shape[-1]}\n', end='')
                 results = evaluate(top100, query_truth, metrics)
                 result_string = ''
-                for _, metric_value in results.items():
-                    result_string += f'{metric_value}\t'
-                print(result_string[:-1])
-            test(f'results/{model}/GeoGLUE_clean_{model}_top100.npy')
+                for metric_name, metric_value in results.items():
+                    result_string += f'{metric_name}: {metric_value:.4f} | '
+                final_output = result_string[:-3]
+                print(final_output)
+                output_dir = f'../results/{model}'
+                os.makedirs(output_dir, exist_ok=True)
+                with open(f'{output_dir}/metric_scores.txt', 'w', encoding='utf-8') as f:
+                    f.write(f"{dataset} - {model}:\n")
+                    f.write(final_output + '\n')
+            file_npy = f'../results/{model}/GeoGLUE_clean_{model}_top100.npy'
+            test(file_npy)
