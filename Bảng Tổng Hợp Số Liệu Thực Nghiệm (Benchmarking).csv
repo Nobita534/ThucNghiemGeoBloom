@@ -3,4 +3,12 @@ Thời gian Test (12k queries),> 5 giờ 21 phút,~17 phút 03 giây,~1 phút 46
 Tốc độ (QPS),Cực chậm (~0.63 QPS),Trung bình (11.88 QPS),Siêu tốc (114.248 QPS)
 Dung lượng Ổ cứng (Disk),Không đáng kể (Index ảo),Khổng lồ (~2.38 GB Vector),Rất gọn (~409 MB)
 Tiêu thụ RAM lúc chạy,Rất cao (Build Index toàn bộ văn bản gốc lên RAM),Cao (Load model 412MB + Ma trận Vector),Tối ưu tĩnh (~372.43 MB)
-Recall@20,(Cần chạy thêm script đo riêng nếu muốn hiển thị),(Cần chạy thêm script đo riêng nếu muốn hiển thị),787.941
+Recall@20,-,-,787.941
+Recall@10,-,-,-
+NDCG@1,-,-,-
+NDCG@5,-,-,-
+Tỷ lệ Success (%),21.07%,5.18%,23.68%
+Tỷ lệ Tiệm cận (%),28.52%,12.75%,29.32%
+Tỷ lệ Fail (%),50.42%,82.07%,47.00%
+Sai số trung bình (m),12148,11895,11610
+Sai số trung vị (m),907,914,912
