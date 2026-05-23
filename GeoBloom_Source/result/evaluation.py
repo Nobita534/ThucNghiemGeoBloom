@@ -66,7 +66,7 @@ if __name__ == '__main__':
     }
     models = [
         # 'BM25',
-        'BM25_D',
+        # 'BM25_D',
         # 'BERT',
          'BERT_D',
         # 'OpenAI',
@@ -99,3 +99,4 @@ if __name__ == '__main__':
                 for _, metric_value in results.items():
                     result_string += f'{metric_value}\t'
                 print(result_string[:-1])
+            test(f'results/{model}/GeoGLUE_clean_{model}_top100.npy')
