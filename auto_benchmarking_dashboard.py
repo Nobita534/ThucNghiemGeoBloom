@@ -5,24 +5,34 @@ import numpy as np
 
 def parse_accuracy_metrics(file_path):
     """
-    Mục đích: Đọc và trích xuất các chỉ số Recall và NDCG từ file kết quả chấm điểm.
-    Ứng dụng: Quét file metric_scores.txt của baseline, dùng Regex (Biểu thức chính quy) 
-             để nhặt chính xác các con số sau dấu hai chấm (:).
+    Mục đích: Đọc và trích xuất chính xác 4 chỉ số chất lượng kể cả khi có khoảng trắng hoặc dấu Tab.
+    Ứng dụng: Loại bỏ khoảng trắng gây nhiễu, định hình khuôn mẫu cứng cho từng chỉ số 
+             để tránh nhận diện nhầm sang các log hệ thống khác (như log thời gian time).
     """
     metrics = {}
     if not os.path.exists(file_path):
         return None
     
+    # Danh sách 4 chỉ số cốt lõi bắt buộc phải tìm
+    target_metrics = ['Recall@20', 'Recall@10', 'NDCG@5', 'NDCG@1']
+    
     with open(file_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-        # Tìm các cặp mẫu dạng Metric_Name: Số_Thập_Phân
-        pattern = r'([a-zA-Z0-9@]+):\s*([0-9.]+)'
-        matches = re.findall(pattern, content)
-        for name, value in matches:
-            metrics[name] = float(value)
+        for line in f:
+            # Bước quan trọng nhất: Xóa bỏ toàn bộ khoảng trắng và dấu Tab trong dòng
+            # Biến "Recall @ 20: 0.4958" thành "Recall@20:0.4958"
+            clean_line = line.replace(" ", "").replace("\t", "").strip()
             
+            # Quét từng chỉ số trong danh sách mục tiêu
+            for metric_name in target_metrics:
+                # Tạo khuôn mẫu chính xác: Tên_Metric:Số_Thập_Phân
+                pattern = f'{metric_name}:([0-9.]+)'
+                match = re.search(pattern, clean_line)
+                
+                if match:
+                    val_float = float(match.group(1))
+                    metrics[metric_name] = f"{val_float:.4f}" # Chuyển đổi chuỗi số thành float và lưu vào từ điển
     return metrics
-
+     
 def calculate_spatial_logs(analysis_dir):
     """
     Mục đích: Đọc 3 file success.txt, top20.txt, fail.txt để bóc tách lỗi không gian.
@@ -146,6 +156,14 @@ if __name__ == '__main__':
     # PHẦN 3: TỰ ĐỘNG ĐIỀN CHO MÔ HÌNH GEOBLOOM
     # ==========================================
     # Quét dữ liệu lỗi từ kết quả analyze.py gốc của GeoBloom (nếu bạn đã chạy và lưu)
+    geobloom_path = 'results/logs/GeoGLUE_clean_v19_test' # Thay đổi đường dẫn cho đúng vị trí file của bạn
+    geobloom_metrics = parse_accuracy_metrics(geobloom_path)
+    if geobloom_metrics:
+        df.at['Recall@10', df.columns[2]] = geobloom_metrics.get('Recall@10', '-')
+        df.at['Recall@20', df.columns[2]] = geobloom_metrics.get('Recall@20', '-')
+        df.at['NDCG@1', df.columns[2]] = geobloom_metrics.get('NDCG@1', '-')
+        df.at['NDCG@5', df.columns[2]] = geobloom_metrics.get('NDCG@5', '-')
+
     geobloom_logs = calculate_spatial_logs('results/logs/geoglue_clean_unsupervised')
     total_geo = geobloom_logs['count_success'] + geobloom_logs['count_top20'] + geobloom_logs['count_fail']
     if total_geo > 0:
@@ -154,7 +172,7 @@ if __name__ == '__main__':
         df.at['Tỷ lệ Fail (%)', df.columns[2]] = f"{(geobloom_logs['count_fail']/total_geo)*100:.2f}%"
         df.at['Sai số trung bình (m)', df.columns[2]] = geobloom_logs['mean_dist']
         df.at['Sai số trung vị (m)', df.columns[2]] = geobloom_logs['median_dist']
-        
+
     # Đưa cột Index quay lại trạng thái bình thường ban đầu và xuất file
     df.reset_index(inplace=True)
     df.to_csv(csv_path, index=False)
