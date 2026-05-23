@@ -155,8 +155,14 @@ if __name__ == '__main__':
     # ==========================================
     # PHẦN 3: TỰ ĐỘNG ĐIỀN CHO MÔ HÌNH GEOBLOOM
     # ==========================================
-    # Quét dữ liệu lỗi từ kết quả analyze.py gốc của GeoBloom (nếu bạn đã chạy và lưu)
-    geobloom_path = 'results/logs/GeoGLUE_clean_v19_test' # Thay đổi đường dẫn cho đúng vị trí file của bạn
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    geobloom_path = os.path.join(BASE_DIR, 'results', 'GeoBloom_Supervised', 'GeoGLUE_clean_v19_test.txt')
+    
+    # Thêm dòng kiểm tra hệ thống (DEBUG) để bạn biết chắc chắn code có đọc được file hay không
+    if not os.path.exists(geobloom_path):
+        print(f"❌ CẢNH BÁO: Hệ thống không tìm thấy file log GeoBloom tại: {geobloom_path}")
+    else:
+        print(f" Tìm thấy file log GeoBloom tại: {geobloom_path}")
     geobloom_metrics = parse_accuracy_metrics(geobloom_path)
     if geobloom_metrics:
         df.at['Recall@10', df.columns[2]] = geobloom_metrics.get('Recall@10', '-')
