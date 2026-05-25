@@ -1,8 +1,7 @@
 Tiêu chí Đánh giá,BM25-D (Truyền thống),BERT-D (Học sâu),GeoBloom (Đề xuất - v19)
-Thời gian Test (12k queries),> 5 giờ 21 phút,~17 phút 03 giây,~1 phút 46 giây
-Tốc độ (QPS),Cực chậm (~0.63 QPS),Trung bình (11.88 QPS),Siêu tốc (114.248 QPS)
-Dung lượng Ổ cứng (Disk),Không đáng kể (Index ảo),Khổng lồ (~2.38 GB Vector),Rất gọn (~409 MB)
-Tiêu thụ RAM lúc chạy,Rất cao (Build Index toàn bộ văn bản gốc lên RAM),Cao (Load model 412MB + Ma trận Vector),Tối ưu tĩnh (~372.43 MB)
+Inference_Time_Seconds,18072.20,1033.29,105.634
+Inference_QPS,0.673,11.765,115.086
+Dung lượng Ổ cứng (Disk)-MB,-,-,22.5
 Recall@20,0.4958,0.1793,0.7879
 Recall@10,0.4253,0.1472,0.7326
 NDCG@1,0.2107,0.0518,0.4212
