@@ -132,44 +132,49 @@ Cấu trúc cây thư mục tổng thể của kho lưu trữ `ThucNghiemGeoBloo
 ```text
 ThucNghiemGeoBloom/
 │
-├─── auto_benchmarking_dashboard.py # Script Python tự động quét log, xử lý số liệu phẳng cho Dashboard local
-├─── README.md                      # Tài liệu hướng dẫn thực nghiệm hệ thống tổng thể
-│
-├─── data/                          # Thư mục lưu trữ các tệp dữ liệu thô cục bộ
-│
-├─── evaluation/                    # Thư mục chứa các script đánh giá độc lập
-│
-├─── GeoBloom_Source/               # Kho lưu trữ mã nguồn nền tảng từ tác giả gốc (gồm model, nnue C++, baselines...)
-│
-├─── models/                        # Quản lý và lưu trữ các file trọng số mô hình sau khi huấn luyện
-│    └─── GeoBloom_Supervised/
-│         └─── GeoGLUE_clean_geobloom_v19.pt # File checkpoint trọng số của GeoBloom huấn luyện trên Kaggle
-│
-├─── notebooks/                     # Hệ thống các tệp Jupyter Notebook thực thi tiến trình thực nghiệm chính
-│    ├─── baseline-bertd.ipynb      # Tiến trình chạy mô hình đối chứng BERT-D trên Kaggle
-│    ├─── baseline-bm25d.ipynb      # Tiến trình chạy mô hình đối chứng BM25-D trên Kaggle
-│    ├─── geobloom-supervised-training (1).ipynb # Tiến trình huấn luyện có giám sát mô hình GeoBloom v19
-│    ├─── varyingdata-bigdataproj.ipynb # Vòng lặp thực nghiệm thiếu hụt dữ liệu (Robustness với 7 phân đoạn)
-│    └─── Fail_analyze.ipynb        # Phân tích sâu các chuỗi câu truy vấn định vị bị lỗi của GeoBloom
-│
-├─── reports/                       # Thư mục lưu trữ các báo cáo thực nghiệm liên quan
-│
-├─── results/                       # Hệ thống quản lý log đầu ra tĩnh bóc tách từ Kaggle
-│    ├─── BERT_D/                   # Kết quả đo đạc thời gian, ma trận nhúng và điểm số của BERT-D
-│    ├─── BM25_D/                   # Kết quả đo đạc thời gian, tốc độ QPS và điểm số của BM25-D
-│    ├─── GeoBloom_Supervised/      # Kết quả kiểm thử và log hiệu năng thời gian thực của GeoBloom có giám sát
-│    ├─── Unsupervised_result/      # Nhật ký kết quả định vị không giám sát của GeoBloom
-│    ├─── Varying Data/             # Tệp kết quả tĩnh 'varying_data_results.txt' lưu điểm số qua 7 tỷ lệ dữ liệu
-│    └─── logs/                     # Folder lưu trữ phân loại chuỗi câu truy vấn định vị chi tiết
-│         ├─── BERT_D_Analysis/     # Danh sách câu truy vấn Success/Top20/Fail của BERT-D
-│         ├─── BM25_D_Analysis/     # Danh sách câu truy vấn Success/Top20/Fail của BM25-D
-│         └─── geoglue_clean_unsupervised/ # Danh sách câu truy vấn Success/Top20/Fail của GeoBloom Unsupervised
-│
-└─── Visualizaion/                  # Phân khu cơ sở dữ liệu và tệp trực quan hóa Dashboard tập trung
-     ├─── Bảng tổng hợp kết quả Varying Data.csv               # Dữ liệu phẳng đo độ ổn định mô hình
-     ├─── Bảng Tổng Hợp Số Liệu Thực Nghiệm (Benchmarking).csv # Dữ liệu phẳng so sánh hiệu năng 3 mô hình
-     │
-     ├─── Dashboard/                # Lưu trữ các file ảnh tĩnh kết quả Dashboard trực quan (.png)
-     └─── PowerBI/                  # Nơi lưu trữ file thiết kế Dashboard tương tác Power BI gốc
-          └─── Dashboard thống kê hiệu năng của mô hình GeoBloom.pbix
+├───GeoBloom_Source
+│   ├───baselines
+│   │   ├───BERT
+│   │   ├───BM25
+│   │   ├───DPR_POI
+│   │   │   ├───config
+│   │   │   └───utils
+│   │   └───OpenAI
+│   ├───ckpt
+│   ├───cuda
+│   ├───data
+│   │   ├───GeoGLUE_clean
+│   │   │   └───portion
+│   │   ├───GeoGLUE_clean_subset
+│   │   └───Synthetic
+│   ├───data_bin
+│   │   ├───Beijing
+│   │   ├───GeoGLUE
+│   │   ├───GeoGLUE_clean
+│   │   └───Shanghai
+│   ├───data_util
+│   ├───model
+│   │   ├───tmp
+│   │   │   └───GeoGLUE_clean_v19
+│   │   └───__pycache__
+│   ├───nnue
+│   │   └───v19
+│   ├───repeat
+│   └───result
+├───models
+│   └───GeoBloom_Supervised
+├───notebooks
+├───results
+│   ├───BERT_D
+│   ├───BM25_D
+│   ├───GeoBloom_Supervised
+│   ├───logs
+│   │   ├───BERT_D_Analysis
+│   │   ├───BM25_D_Analysis
+│   │   └───geoglue_clean_unsupervised
+│   ├───Unsupervised_result
+│   └───Varying Data
+└───Visualizaion
+    ├───Dashboard
+    └───PowerBI
 ```
